@@ -100,7 +100,7 @@ namespace ALE_StrongUnknownSignalLogger {
 
             try {
 
-                if(!plugin.Config.LogRegularSignals && !dropComponent.Competetive)
+                if (!plugin.Config.LogRegularSignals && !dropComponent.Competetive)
                     return;
 
                 if (!(entity is MyButtonPanel buttonPanel))
@@ -111,11 +111,32 @@ namespace ALE_StrongUnknownSignalLogger {
                 var grid = buttonPanel.CubeGrid;
                 var position = buttonPanel.PositionComp.GetPosition();
 
-                Log.Info(ownerName + " - " + grid.DisplayName + " - GPS:" + ownerName + " - " + grid.DisplayName + ":" + position.X + ":" + position.Y + ":" + position.Z + ":#FFFFFF00:");
+                string typeString = "[REGULAR]";
+
+                if (dropComponent.Competetive)
+                    typeString = "[STRONG ]";
+
+                string factionTag = GetFactionTagStringForPlayer(dropComponent.Owner);
+
+                Log.Info(typeString + " " + (ownerName + factionTag + " - " + grid.DisplayName).PadRight(50) + " GPS:" + ownerName + " - " + grid.DisplayName + ":" + position.X + ":" + position.Y + ":" + position.Z + ":#FFFFFF00:");
+
+            } catch(Exception e) {
+
+                LogManager.GetCurrentClassLogger().Error(e, "Error on logging!");
 
             } finally {
                 entity.Components.ComponentAdded -= ActionComponentAdded;
             }
+        }
+
+        public static string GetFactionTagStringForPlayer(long playerId) {
+
+            var factionTagString = FactionUtils.GetPlayerFactionTag(playerId);
+
+            if (factionTagString == "")
+                return factionTagString;
+
+            return " [" + factionTagString + "]";
         }
     }
 }
