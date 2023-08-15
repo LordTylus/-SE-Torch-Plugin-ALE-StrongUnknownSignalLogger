@@ -192,7 +192,7 @@
   <ItemGroup>
     <Content Include="manifest.xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-  <Import Project="ALE-Core\ALE-Core.projitems" Label="Shared" />
+  <Import Project="..\ALE-Core\ALE-Core.projitems" Label="Shared" />
   <Target Name="Zip" BeforeTargets="AfterBuild">
     <MakeDir Directories="$(SolutionDir)\Build\" />
     <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(SolutionDir)\Build\$(MSBuildProjectName).zip" Overwrite="true" />
