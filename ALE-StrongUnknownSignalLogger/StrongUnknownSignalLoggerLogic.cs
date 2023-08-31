@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VRage.Game.Components;
+using VRage.Game.Components.Interfaces;
 using VRage.Game.Entity;
 
 namespace ALE_StrongUnknownSignalLogger {
@@ -91,7 +92,7 @@ namespace ALE_StrongUnknownSignalLogger {
             obj.OnMarkForClose -= ActionMarkedForClose;
         }
 
-        private void ActionComponentAdded(Type type, MyEntityComponentBase componentBase) {
+        private void ActionComponentAdded(Type type, IMyEntityComponentBase componentBase) {
 
             var entity = componentBase.Entity;
 
